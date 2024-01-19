@@ -4,9 +4,21 @@ The PCI SD card reader blocks ACPI sleep.
 
 Solution: Disable wake for SD PCI syspath.
 
+In `/etc/udev/rules.d/20-pci-sd-card-nowake.rules`: 
 ```
 SUBSYSTEM=="pci", KERNEL=="0000:00:02.3", ATTR{device}=="0x14ee", ATTR{power/wakeup}="disabled"
 ```
+
+### Real Sleep fix
+
+from: https://gitlab.freedesktop.org/drm/amd/-/issues/3073
+
+In `/etc/udev/rules.d/20-i2c-amd-nowake.rules`:
+```
+SUBSYSTEM=="i2c", KERNEL=="i2c-PNP0C50:00", ATTR{power/wakeup}="disabled"
+SUBSYSTEM=="i2c", KERNEL=="i2c-GXTP7385:00", ATTR{power/wakeup}="disabled"
+```
+
 
 ### Block Paddles + gamepad mouse/keyboard mapping
 
